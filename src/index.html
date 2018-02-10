@@ -1,0 +1,49 @@
+<!doctype html>
+<title>Bible reading planner</title>
+<link rel="stylesheet" href="styles.css">
+<script src="bundle.min.js"></script>
+
+<body ng-app="brp" ng-controller="IndexCtrl as $ctrl">
+  <div>
+    <span>From</span>
+    <select ng-model="$ctrl.from.book">
+      <option ng-repeat="book in $ctrl.books" ng-value="book">{{book.name}}</option>
+    </select>
+    <select ng-model="$ctrl.from.chapter">
+      <option ng-repeat="chapter in $ctrl.from.book.chapters" ng-value="chapter">{{chapter.number}}</option>
+    </select>
+    <select ng-model="$ctrl.from.verse">
+      <option ng-repeat="verse in $ctrl.from.chapter.verses" ng-value="verse">{{verse.number}}</option>
+    </select>
+    <input type="date" ng-model="$ctrl.from.date" >
+  </div>
+  <div>
+    <span>To</span>
+    <select ng-model="$ctrl.to.book">
+      <option ng-repeat="book in $ctrl.books" ng-value="book">{{book.name}}</option>
+    </select>
+    <select ng-model="$ctrl.to.chapter">
+      <option ng-repeat="chapter in $ctrl.to.book.chapters" ng-value="chapter">{{chapter.number}}</option>
+    </select>
+    <select ng-model="$ctrl.to.verse">
+      <option ng-repeat="verse in $ctrl.to.chapter.verses" ng-value="verse">{{verse.number}}</option>
+    </select>
+    <input type="date" ng-model="$ctrl.to.date" >
+  </div>
+  <div>
+    <button ng-click="$ctrl.onGenerate()">Generate</button>
+  </div>
+  <div>
+    <table>
+      <tr ng-repeat="dailyPlan in $ctrl.dailyPlans">
+        <td>{{dailyPlan.date | date}}</td>
+        <td>{{dailyPlan.startVerse.chapter.book.name}}&nbsp;{{dailyPlan.startVerse.chapter.number}}:{{dailyPlan.startVerse.number}}</td>
+        <td>{{dailyPlan.endVerse.chapter.book.name}}&nbsp;{{dailyPlan.endVerse.chapter.number}}:{{dailyPlan.endVerse.number}}</td>
+        <td>{{dailyPlan.length}}</td>
+      </tr>
+    </table>
+  </div>
+  <div>
+    <textarea ng-model="$ctrl.dailyPlansText"></textarea>
+  </div>
+</body>
