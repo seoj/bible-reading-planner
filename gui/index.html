@@ -1,0 +1,41 @@
+<!doctype html>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link rel="stylesheet" href="index.css">
+
+<body ng-app="bible" ng-cloak ng-controller="IndexCtrl as $ctrl">
+  <div>
+    <select ng-model="$ctrl.fromBook" ng-options="book.name for book in $ctrl.books"></select>
+    <select ng-model="$ctrl.fromChapter" ng-options="chapter.number for chapter in $ctrl.fromBook.chapters"></select>
+    <select ng-model="$ctrl.range.fromVerse" ng-options="verse.number for verse in $ctrl.fromChapter.verses"></select>
+  </div>
+  <div>
+    <select ng-model="$ctrl.toBook" ng-options="book.name for book in $ctrl.books"></select>
+    <select ng-model="$ctrl.toChapter" ng-options="chapter.number for chapter in $ctrl.toBook.chapters"></select>
+    <select ng-model="$ctrl.range.toVerse" ng-options="verse.number for verse in $ctrl.toChapter.verses"></select>
+  </div>
+  <div>
+    <input type="date" ng-model="$ctrl.fromDate">
+    <input type="date" ng-model="$ctrl.toDate">
+  </div>
+  <div>
+    <button ng-click="$ctrl.onCreatePlan()">Create plan</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>From</th>
+        <th>To</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="dailyPlan in $ctrl.dailyPlans">
+        <td>{{dailyPlan.date|date:'yyyy-MM-dd'}}</td>
+        <td>{{dailyPlan.fromVerse|verse}}</td>
+        <td>{{dailyPlan.toVerse|verse}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
+  <script src="index.js"></script>
+</body>
